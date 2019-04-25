@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sang.yun.mapper.ReceiptMapper" >
+  <resultMap id="BaseResultMap" type="org.sang.yun.pojo.Receipt" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="reNumber" property="reNumber" jdbcType="VARCHAR" />
+    <result column="payName" property="payName" jdbcType="VARCHAR" />
+    <result column="rePrice" property="rePrice" jdbcType="DOUBLE" />
+    <result column="written_off" property="written_off" jdbcType="DOUBLE" />
+    <result column="incomeTypeId" property="incomeTypeId" jdbcType="INTEGER" />
+    <result column="payType" property="payType" jdbcType="VARCHAR" />
+    <result column="billId" property="billId" jdbcType="INTEGER" />
+    <result column="auditName" property="auditName" jdbcType="VARCHAR" />
+    <result column="prepareName" property="prepareName" jdbcType="VARCHAR" />
+    <result column="reDate" property="reDate" jdbcType="DATE" />
+    <result column="commitDate" property="commitDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, reNumber, payName, rePrice, written_off, incomeTypeId, payType, billId, auditName, 
+    prepareName, reDate, commitDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.sang.yun.pojo.ReceiptExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from receipt
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from receipt
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from receipt
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.sang.yun.pojo.Receipt" useGeneratedKeys="true" keyProperty="id" >
+    insert into receipt (reNumber, payName, rePrice, 
+      written_off, incomeTypeId, payType, 
+      billId, auditName, prepareName, 
+      reDate, commitDate)
+    values (#{reNumber,jdbcType=VARCHAR}, #{payName,jdbcType=VARCHAR}, #{rePrice,jdbcType=DOUBLE}, 
+      #{written_off,jdbcType=DOUBLE}, #{incomeTypeId,jdbcType=INTEGER}, #{payType,jdbcType=VARCHAR}, 
+      #{billId,jdbcType=INTEGER}, #{auditName,jdbcType=VARCHAR}, #{prepareName,jdbcType=VARCHAR}, 
+      #{reDate,jdbcType=DATE}, #{commitDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="org.sang.yun.pojo.Receipt" useGeneratedKeys="true" keyProperty="id" >
+    insert into receipt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reNumber != null" >
+        reNumber,
+      </if>
+      <if test="payName != null" >
+        payName,
+      </if>
+      <if test="rePrice != null" >
+        rePrice,
+      </if>
+      <if test="written_off != null" >
+        written_off,
+      </if>
+      <if test="incomeTypeId != null" >
+        incomeTypeId,
+      </if>
+      <if test="payType != null" >
+        payType,
+      </if>
+      <if test="billId != null" >
+        billId,
+      </if>
+      <if test="auditName != null" >
+        auditName,
+      </if>
+      <if test="prepareName != null" >
+        prepareName,
+      </if>
+      <if test="reDate != null" >
+        reDate,
+      </if>
+      <if test="commitDate != null" >
+        commitDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reNumber != null" >
+        #{reNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payName != null" >
+        #{payName,jdbcType=VARCHAR},
+      </if>
+      <if test="rePrice != null" >
+        #{rePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="written_off != null" >
+        #{written_off,jdbcType=DOUBLE},
+      </if>
+      <if test="incomeTypeId != null" >
+        #{incomeTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="billId != null" >
+        #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="auditName != null" >
+        #{auditName,jdbcType=VARCHAR},
+      </if>
+      <if test="prepareName != null" >
+        #{prepareName,jdbcType=VARCHAR},
+      </if>
+      <if test="reDate != null" >
+        #{reDate,jdbcType=DATE},
+      </if>
+      <if test="commitDate != null" >
+        #{commitDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.sang.yun.pojo.Receipt" >
+    update receipt
+    <set >
+      <if test="reNumber != null" >
+        reNumber = #{reNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="payName != null" >
+        payName = #{payName,jdbcType=VARCHAR},
+      </if>
+      <if test="rePrice != null" >
+        rePrice = #{rePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="written_off != null" >
+        written_off = #{written_off,jdbcType=DOUBLE},
+      </if>
+      <if test="incomeTypeId != null" >
+        incomeTypeId = #{incomeTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="payType != null" >
+        payType = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="billId != null" >
+        billId = #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="auditName != null" >
+        auditName = #{auditName,jdbcType=VARCHAR},
+      </if>
+      <if test="prepareName != null" >
+        prepareName = #{prepareName,jdbcType=VARCHAR},
+      </if>
+      <if test="reDate != null" >
+        reDate = #{reDate,jdbcType=DATE},
+      </if>
+      <if test="commitDate != null" >
+        commitDate = #{commitDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.sang.yun.pojo.Receipt" >
+    update receipt
+    set reNumber = #{reNumber,jdbcType=VARCHAR},
+      payName = #{payName,jdbcType=VARCHAR},
+      rePrice = #{rePrice,jdbcType=DOUBLE},
+      written_off = #{written_off,jdbcType=DOUBLE},
+      incomeTypeId = #{incomeTypeId,jdbcType=INTEGER},
+      payType = #{payType,jdbcType=VARCHAR},
+      billId = #{billId,jdbcType=INTEGER},
+      auditName = #{auditName,jdbcType=VARCHAR},
+      prepareName = #{prepareName,jdbcType=VARCHAR},
+      reDate = #{reDate,jdbcType=DATE},
+      commitDate = #{commitDate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

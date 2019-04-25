@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sang.yun.mapper.StockMapper" >
+  <resultMap id="BaseResultMap" type="org.sang.yun.pojo.Stock" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stockNumber" property="stockNumber" jdbcType="VARCHAR" />
+    <result column="clId" property="clId" jdbcType="INTEGER" />
+    <result column="stockTypeId" property="stockTypeId" jdbcType="INTEGER" />
+    <result column="waId" property="waId" jdbcType="INTEGER" />
+    <result column="billId" property="billId" jdbcType="INTEGER" />
+    <result column="planDate" property="planDate" jdbcType="DATE" />
+    <result column="prepareName" property="prepareName" jdbcType="VARCHAR" />
+    <result column="auditDate" property="auditDate" jdbcType="DATE" />
+    <result column="commitDate" property="commitDate" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="outOrIn" property="outOrIn" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stockNumber, clId, stockTypeId, waId, billId, planDate, prepareName, auditDate, 
+    commitDate, remark, outOrIn
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.sang.yun.pojo.StockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stock
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.sang.yun.pojo.Stock" useGeneratedKeys="true" keyProperty="id" >
+    insert into stock (stockNumber, clId, stockTypeId, 
+      waId, billId, planDate, 
+      prepareName, auditDate, commitDate, 
+      remark, outOrIn)
+    values (#{stockNumber,jdbcType=VARCHAR}, #{clId,jdbcType=INTEGER}, #{stockTypeId,jdbcType=INTEGER}, 
+      #{waId,jdbcType=INTEGER}, #{billId,jdbcType=INTEGER}, #{planDate,jdbcType=DATE}, 
+      #{prepareName,jdbcType=VARCHAR}, #{auditDate,jdbcType=DATE}, #{commitDate,jdbcType=DATE}, 
+      #{remark,jdbcType=VARCHAR}, #{outOrIn,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.sang.yun.pojo.Stock" useGeneratedKeys="true" keyProperty="id" >
+    insert into stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockNumber != null" >
+        stockNumber,
+      </if>
+      <if test="clId != null" >
+        clId,
+      </if>
+      <if test="stockTypeId != null" >
+        stockTypeId,
+      </if>
+      <if test="waId != null" >
+        waId,
+      </if>
+      <if test="billId != null" >
+        billId,
+      </if>
+      <if test="planDate != null" >
+        planDate,
+      </if>
+      <if test="prepareName != null" >
+        prepareName,
+      </if>
+      <if test="auditDate != null" >
+        auditDate,
+      </if>
+      <if test="commitDate != null" >
+        commitDate,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="outOrIn != null" >
+        outOrIn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockNumber != null" >
+        #{stockNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="clId != null" >
+        #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="stockTypeId != null" >
+        #{stockTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="waId != null" >
+        #{waId,jdbcType=INTEGER},
+      </if>
+      <if test="billId != null" >
+        #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="planDate != null" >
+        #{planDate,jdbcType=DATE},
+      </if>
+      <if test="prepareName != null" >
+        #{prepareName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=DATE},
+      </if>
+      <if test="commitDate != null" >
+        #{commitDate,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="outOrIn != null" >
+        #{outOrIn,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.sang.yun.pojo.Stock" >
+    update stock
+    <set >
+      <if test="stockNumber != null" >
+        stockNumber = #{stockNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="clId != null" >
+        clId = #{clId,jdbcType=INTEGER},
+      </if>
+      <if test="stockTypeId != null" >
+        stockTypeId = #{stockTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="waId != null" >
+        waId = #{waId,jdbcType=INTEGER},
+      </if>
+      <if test="billId != null" >
+        billId = #{billId,jdbcType=INTEGER},
+      </if>
+      <if test="planDate != null" >
+        planDate = #{planDate,jdbcType=DATE},
+      </if>
+      <if test="prepareName != null" >
+        prepareName = #{prepareName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        auditDate = #{auditDate,jdbcType=DATE},
+      </if>
+      <if test="commitDate != null" >
+        commitDate = #{commitDate,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="outOrIn != null" >
+        outOrIn = #{outOrIn,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.sang.yun.pojo.Stock" >
+    update stock
+    set stockNumber = #{stockNumber,jdbcType=VARCHAR},
+      clId = #{clId,jdbcType=INTEGER},
+      stockTypeId = #{stockTypeId,jdbcType=INTEGER},
+      waId = #{waId,jdbcType=INTEGER},
+      billId = #{billId,jdbcType=INTEGER},
+      planDate = #{planDate,jdbcType=DATE},
+      prepareName = #{prepareName,jdbcType=VARCHAR},
+      auditDate = #{auditDate,jdbcType=DATE},
+      commitDate = #{commitDate,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      outOrIn = #{outOrIn,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

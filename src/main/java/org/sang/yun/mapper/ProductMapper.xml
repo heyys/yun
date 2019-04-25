@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sang.yun.mapper.ProductMapper" >
+  <resultMap id="BaseResultMap" type="org.sang.yun.pojo.Product" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="proNumber" property="proNumber" jdbcType="VARCHAR" />
+    <result column="proName" property="proName" jdbcType="VARCHAR" />
+    <result column="cateId" property="cateId" jdbcType="INTEGER" />
+    <result column="proStatus" property="proStatus" jdbcType="INTEGER" />
+    <result column="stId" property="stId" jdbcType="INTEGER" />
+    <result column="unId" property="unId" jdbcType="INTEGER" />
+    <result column="usableStock" property="usableStock" jdbcType="INTEGER" />
+    <result column="sysStock" property="sysStock" jdbcType="INTEGER" />
+    <result column="keyWord" property="keyWord" jdbcType="VARCHAR" />
+    <result column="solePrice" property="solePrice" jdbcType="DOUBLE" />
+    <result column="totalPrice" property="totalPrice" jdbcType="DOUBLE" />
+    <result column="imgId" property="imgId" jdbcType="INTEGER" />
+    <result column="suId" property="suId" jdbcType="INTEGER" />
+    <result column="brandId" property="brandId" jdbcType="INTEGER" />
+    <result column="laId" property="laId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, proNumber, proName, cateId, proStatus, stId, unId, usableStock, sysStock, keyWord, 
+    solePrice, totalPrice, imgId, suId, brandId, laId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.sang.yun.pojo.ProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.sang.yun.pojo.Product" useGeneratedKeys="true" keyProperty="id" >
+    insert into product (proNumber, proName, cateId, 
+      proStatus, stId, unId, 
+      usableStock, sysStock, keyWord, 
+      solePrice, totalPrice, imgId, 
+      suId, brandId, laId
+      )
+    values (#{proNumber,jdbcType=VARCHAR}, #{proName,jdbcType=VARCHAR}, #{cateId,jdbcType=INTEGER}, 
+      #{proStatus,jdbcType=INTEGER}, #{stId,jdbcType=INTEGER}, #{unId,jdbcType=INTEGER}, 
+      #{usableStock,jdbcType=INTEGER}, #{sysStock,jdbcType=INTEGER}, #{keyWord,jdbcType=VARCHAR}, 
+      #{solePrice,jdbcType=DOUBLE}, #{totalPrice,jdbcType=DOUBLE}, #{imgId,jdbcType=INTEGER}, 
+      #{suId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, #{laId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.sang.yun.pojo.Product" useGeneratedKeys="true" keyProperty="id" >
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proNumber != null" >
+        proNumber,
+      </if>
+      <if test="proName != null" >
+        proName,
+      </if>
+      <if test="cateId != null" >
+        cateId,
+      </if>
+      <if test="proStatus != null" >
+        proStatus,
+      </if>
+      <if test="stId != null" >
+        stId,
+      </if>
+      <if test="unId != null" >
+        unId,
+      </if>
+      <if test="usableStock != null" >
+        usableStock,
+      </if>
+      <if test="sysStock != null" >
+        sysStock,
+      </if>
+      <if test="keyWord != null" >
+        keyWord,
+      </if>
+      <if test="solePrice != null" >
+        solePrice,
+      </if>
+      <if test="totalPrice != null" >
+        totalPrice,
+      </if>
+      <if test="imgId != null" >
+        imgId,
+      </if>
+      <if test="suId != null" >
+        suId,
+      </if>
+      <if test="brandId != null" >
+        brandId,
+      </if>
+      <if test="laId != null" >
+        laId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proNumber != null" >
+        #{proNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="proName != null" >
+        #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="cateId != null" >
+        #{cateId,jdbcType=INTEGER},
+      </if>
+      <if test="proStatus != null" >
+        #{proStatus,jdbcType=INTEGER},
+      </if>
+      <if test="stId != null" >
+        #{stId,jdbcType=INTEGER},
+      </if>
+      <if test="unId != null" >
+        #{unId,jdbcType=INTEGER},
+      </if>
+      <if test="usableStock != null" >
+        #{usableStock,jdbcType=INTEGER},
+      </if>
+      <if test="sysStock != null" >
+        #{sysStock,jdbcType=INTEGER},
+      </if>
+      <if test="keyWord != null" >
+        #{keyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="solePrice != null" >
+        #{solePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="suId != null" >
+        #{suId,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="laId != null" >
+        #{laId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.sang.yun.pojo.Product" >
+    update product
+    <set >
+      <if test="proNumber != null" >
+        proNumber = #{proNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="proName != null" >
+        proName = #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="cateId != null" >
+        cateId = #{cateId,jdbcType=INTEGER},
+      </if>
+      <if test="proStatus != null" >
+        proStatus = #{proStatus,jdbcType=INTEGER},
+      </if>
+      <if test="stId != null" >
+        stId = #{stId,jdbcType=INTEGER},
+      </if>
+      <if test="unId != null" >
+        unId = #{unId,jdbcType=INTEGER},
+      </if>
+      <if test="usableStock != null" >
+        usableStock = #{usableStock,jdbcType=INTEGER},
+      </if>
+      <if test="sysStock != null" >
+        sysStock = #{sysStock,jdbcType=INTEGER},
+      </if>
+      <if test="keyWord != null" >
+        keyWord = #{keyWord,jdbcType=VARCHAR},
+      </if>
+      <if test="solePrice != null" >
+        solePrice = #{solePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="totalPrice != null" >
+        totalPrice = #{totalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="imgId != null" >
+        imgId = #{imgId,jdbcType=INTEGER},
+      </if>
+      <if test="suId != null" >
+        suId = #{suId,jdbcType=INTEGER},
+      </if>
+      <if test="brandId != null" >
+        brandId = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="laId != null" >
+        laId = #{laId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.sang.yun.pojo.Product" >
+    update product
+    set proNumber = #{proNumber,jdbcType=VARCHAR},
+      proName = #{proName,jdbcType=VARCHAR},
+      cateId = #{cateId,jdbcType=INTEGER},
+      proStatus = #{proStatus,jdbcType=INTEGER},
+      stId = #{stId,jdbcType=INTEGER},
+      unId = #{unId,jdbcType=INTEGER},
+      usableStock = #{usableStock,jdbcType=INTEGER},
+      sysStock = #{sysStock,jdbcType=INTEGER},
+      keyWord = #{keyWord,jdbcType=VARCHAR},
+      solePrice = #{solePrice,jdbcType=DOUBLE},
+      totalPrice = #{totalPrice,jdbcType=DOUBLE},
+      imgId = #{imgId,jdbcType=INTEGER},
+      suId = #{suId,jdbcType=INTEGER},
+      brandId = #{brandId,jdbcType=INTEGER},
+      laId = #{laId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

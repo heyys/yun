@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sang.yun.mapper.StandMapper" >
+  <resultMap id="BaseResultMap" type="org.sang.yun.pojo.Stand" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stImg" property="stImg" jdbcType="VARCHAR" />
+    <result column="stName" property="stName" jdbcType="VARCHAR" />
+    <result column="stNumber" property="stNumber" jdbcType="VARCHAR" />
+    <result column="stRetail" property="stRetail" jdbcType="DOUBLE" />
+    <result column="stSell" property="stSell" jdbcType="DOUBLE" />
+    <result column="stCode" property="stCode" jdbcType="VARCHAR" />
+    <result column="startNumber" property="startNumber" jdbcType="INTEGER" />
+    <result column="endNumber" property="endNumber" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="volume" property="volume" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, stImg, stName, stNumber, stRetail, stSell, stCode, startNumber, endNumber, weight, 
+    volume
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.sang.yun.pojo.StandExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from stand
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stand
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stand
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.sang.yun.pojo.Stand" useGeneratedKeys="true" keyProperty="id" >
+    insert into stand (stImg, stName, stNumber, 
+      stRetail, stSell, stCode, 
+      startNumber, endNumber, weight, 
+      volume)
+    values (#{stImg,jdbcType=VARCHAR}, #{stName,jdbcType=VARCHAR}, #{stNumber,jdbcType=VARCHAR}, 
+      #{stRetail,jdbcType=DOUBLE}, #{stSell,jdbcType=DOUBLE}, #{stCode,jdbcType=VARCHAR}, 
+      #{startNumber,jdbcType=INTEGER}, #{endNumber,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, 
+      #{volume,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="org.sang.yun.pojo.Stand" useGeneratedKeys="true" keyProperty="id" >
+    insert into stand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stImg != null" >
+        stImg,
+      </if>
+      <if test="stName != null" >
+        stName,
+      </if>
+      <if test="stNumber != null" >
+        stNumber,
+      </if>
+      <if test="stRetail != null" >
+        stRetail,
+      </if>
+      <if test="stSell != null" >
+        stSell,
+      </if>
+      <if test="stCode != null" >
+        stCode,
+      </if>
+      <if test="startNumber != null" >
+        startNumber,
+      </if>
+      <if test="endNumber != null" >
+        endNumber,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="volume != null" >
+        volume,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stImg != null" >
+        #{stImg,jdbcType=VARCHAR},
+      </if>
+      <if test="stName != null" >
+        #{stName,jdbcType=VARCHAR},
+      </if>
+      <if test="stNumber != null" >
+        #{stNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="stRetail != null" >
+        #{stRetail,jdbcType=DOUBLE},
+      </if>
+      <if test="stSell != null" >
+        #{stSell,jdbcType=DOUBLE},
+      </if>
+      <if test="stCode != null" >
+        #{stCode,jdbcType=VARCHAR},
+      </if>
+      <if test="startNumber != null" >
+        #{startNumber,jdbcType=INTEGER},
+      </if>
+      <if test="endNumber != null" >
+        #{endNumber,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.sang.yun.pojo.Stand" >
+    update stand
+    <set >
+      <if test="stImg != null" >
+        stImg = #{stImg,jdbcType=VARCHAR},
+      </if>
+      <if test="stName != null" >
+        stName = #{stName,jdbcType=VARCHAR},
+      </if>
+      <if test="stNumber != null" >
+        stNumber = #{stNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="stRetail != null" >
+        stRetail = #{stRetail,jdbcType=DOUBLE},
+      </if>
+      <if test="stSell != null" >
+        stSell = #{stSell,jdbcType=DOUBLE},
+      </if>
+      <if test="stCode != null" >
+        stCode = #{stCode,jdbcType=VARCHAR},
+      </if>
+      <if test="startNumber != null" >
+        startNumber = #{startNumber,jdbcType=INTEGER},
+      </if>
+      <if test="endNumber != null" >
+        endNumber = #{endNumber,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null" >
+        volume = #{volume,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.sang.yun.pojo.Stand" >
+    update stand
+    set stImg = #{stImg,jdbcType=VARCHAR},
+      stName = #{stName,jdbcType=VARCHAR},
+      stNumber = #{stNumber,jdbcType=VARCHAR},
+      stRetail = #{stRetail,jdbcType=DOUBLE},
+      stSell = #{stSell,jdbcType=DOUBLE},
+      stCode = #{stCode,jdbcType=VARCHAR},
+      startNumber = #{startNumber,jdbcType=INTEGER},
+      endNumber = #{endNumber,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DOUBLE},
+      volume = #{volume,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

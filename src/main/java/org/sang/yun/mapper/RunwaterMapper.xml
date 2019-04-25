@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sang.yun.mapper.RunwaterMapper" >
+  <resultMap id="BaseResultMap" type="org.sang.yun.pojo.Runwater" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="run_number" property="run_number" jdbcType="INTEGER" />
+    <result column="reNumber" property="reNumber" jdbcType="VARCHAR" />
+    <result column="incomeType" property="incomeType" jdbcType="VARCHAR" />
+    <result column="rePrice" property="rePrice" jdbcType="DOUBLE" />
+    <result column="payType" property="payType" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="reDate" property="reDate" jdbcType="DATE" />
+    <result column="creatDate" property="creatDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, run_number, reNumber, incomeType, rePrice, payType, remark, reDate, creatDate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.sang.yun.pojo.RunwaterExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from runwater
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from runwater
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from runwater
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.sang.yun.pojo.Runwater" useGeneratedKeys="true" keyProperty="id" >
+    insert into runwater (run_number, reNumber, incomeType, 
+      rePrice, payType, remark, 
+      reDate, creatDate)
+    values (#{run_number,jdbcType=INTEGER}, #{reNumber,jdbcType=VARCHAR}, #{incomeType,jdbcType=VARCHAR}, 
+      #{rePrice,jdbcType=DOUBLE}, #{payType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{reDate,jdbcType=DATE}, #{creatDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="org.sang.yun.pojo.Runwater" useGeneratedKeys="true" keyProperty="id" >
+    insert into runwater
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="run_number != null" >
+        run_number,
+      </if>
+      <if test="reNumber != null" >
+        reNumber,
+      </if>
+      <if test="incomeType != null" >
+        incomeType,
+      </if>
+      <if test="rePrice != null" >
+        rePrice,
+      </if>
+      <if test="payType != null" >
+        payType,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="reDate != null" >
+        reDate,
+      </if>
+      <if test="creatDate != null" >
+        creatDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="run_number != null" >
+        #{run_number,jdbcType=INTEGER},
+      </if>
+      <if test="reNumber != null" >
+        #{reNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeType != null" >
+        #{incomeType,jdbcType=VARCHAR},
+      </if>
+      <if test="rePrice != null" >
+        #{rePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="reDate != null" >
+        #{reDate,jdbcType=DATE},
+      </if>
+      <if test="creatDate != null" >
+        #{creatDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.sang.yun.pojo.Runwater" >
+    update runwater
+    <set >
+      <if test="run_number != null" >
+        run_number = #{run_number,jdbcType=INTEGER},
+      </if>
+      <if test="reNumber != null" >
+        reNumber = #{reNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeType != null" >
+        incomeType = #{incomeType,jdbcType=VARCHAR},
+      </if>
+      <if test="rePrice != null" >
+        rePrice = #{rePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="payType != null" >
+        payType = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="reDate != null" >
+        reDate = #{reDate,jdbcType=DATE},
+      </if>
+      <if test="creatDate != null" >
+        creatDate = #{creatDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.sang.yun.pojo.Runwater" >
+    update runwater
+    set run_number = #{run_number,jdbcType=INTEGER},
+      reNumber = #{reNumber,jdbcType=VARCHAR},
+      incomeType = #{incomeType,jdbcType=VARCHAR},
+      rePrice = #{rePrice,jdbcType=DOUBLE},
+      payType = #{payType,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      reDate = #{reDate,jdbcType=DATE},
+      creatDate = #{creatDate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

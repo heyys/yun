@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sang.yun.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="org.sang.yun.pojo.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="adCompanyName" property="adCompanyName" jdbcType="VARCHAR" />
+    <result column="clName" property="clName" jdbcType="VARCHAR" />
+    <result column="clPhone" property="clPhone" jdbcType="VARCHAR" />
+    <result column="clLogin" property="clLogin" jdbcType="VARCHAR" />
+    <result column="roleId" property="roleId" jdbcType="INTEGER" />
+    <result column="clNumber" property="clNumber" jdbcType="INTEGER" />
+    <result column="clWareHouse" property="clWareHouse" jdbcType="VARCHAR" />
+    <result column="clAreal" property="clAreal" jdbcType="INTEGER" />
+    <result column="clRegion" property="clRegion" jdbcType="VARCHAR" />
+    <result column="clAddress" property="clAddress" jdbcType="VARCHAR" />
+    <result column="clPostCode" property="clPostCode" jdbcType="INTEGER" />
+    <result column="clAdId" property="clAdId" jdbcType="INTEGER" />
+    <result column="clMassageq" property="clMassageq" jdbcType="VARCHAR" />
+    <result column="clFile" property="clFile" jdbcType="VARCHAR" />
+    <result column="clContacts" property="clContacts" jdbcType="VARCHAR" />
+    <result column="clPosition" property="clPosition" jdbcType="VARCHAR" />
+    <result column="clTelephone" property="clTelephone" jdbcType="VARCHAR" />
+    <result column="clEmail" property="clEmail" jdbcType="VARCHAR" />
+    <result column="clQQ" property="clQQ" jdbcType="VARCHAR" />
+    <result column="clStatus" property="clStatus" jdbcType="INTEGER" />
+    <result column="clPassWord" property="clPassWord" jdbcType="VARCHAR" />
+    <result column="clType" property="clType" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, adCompanyName, clName, clPhone, clLogin, roleId, clNumber, clWareHouse, clAreal, 
+    clRegion, clAddress, clPostCode, clAdId, clMassageq, clFile, clContacts, clPosition, 
+    clTelephone, clEmail, clQQ, clStatus, clPassWord, clType
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.sang.yun.pojo.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.sang.yun.pojo.User" useGeneratedKeys="true" keyProperty="id" >
+    insert into user (adCompanyName, clName, clPhone, 
+      clLogin, roleId, clNumber, 
+      clWareHouse, clAreal, clRegion, 
+      clAddress, clPostCode, clAdId, 
+      clMassageq, clFile, clContacts, 
+      clPosition, clTelephone, clEmail, 
+      clQQ, clStatus, clPassWord, 
+      clType)
+    values (#{adCompanyName,jdbcType=VARCHAR}, #{clName,jdbcType=VARCHAR}, #{clPhone,jdbcType=VARCHAR}, 
+      #{clLogin,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{clNumber,jdbcType=INTEGER}, 
+      #{clWareHouse,jdbcType=VARCHAR}, #{clAreal,jdbcType=INTEGER}, #{clRegion,jdbcType=VARCHAR}, 
+      #{clAddress,jdbcType=VARCHAR}, #{clPostCode,jdbcType=INTEGER}, #{clAdId,jdbcType=INTEGER}, 
+      #{clMassageq,jdbcType=VARCHAR}, #{clFile,jdbcType=VARCHAR}, #{clContacts,jdbcType=VARCHAR}, 
+      #{clPosition,jdbcType=VARCHAR}, #{clTelephone,jdbcType=VARCHAR}, #{clEmail,jdbcType=VARCHAR}, 
+      #{clQQ,jdbcType=VARCHAR}, #{clStatus,jdbcType=INTEGER}, #{clPassWord,jdbcType=VARCHAR}, 
+      #{clType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.sang.yun.pojo.User" useGeneratedKeys="true" keyProperty="id" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adCompanyName != null" >
+        adCompanyName,
+      </if>
+      <if test="clName != null" >
+        clName,
+      </if>
+      <if test="clPhone != null" >
+        clPhone,
+      </if>
+      <if test="clLogin != null" >
+        clLogin,
+      </if>
+      <if test="roleId != null" >
+        roleId,
+      </if>
+      <if test="clNumber != null" >
+        clNumber,
+      </if>
+      <if test="clWareHouse != null" >
+        clWareHouse,
+      </if>
+      <if test="clAreal != null" >
+        clAreal,
+      </if>
+      <if test="clRegion != null" >
+        clRegion,
+      </if>
+      <if test="clAddress != null" >
+        clAddress,
+      </if>
+      <if test="clPostCode != null" >
+        clPostCode,
+      </if>
+      <if test="clAdId != null" >
+        clAdId,
+      </if>
+      <if test="clMassageq != null" >
+        clMassageq,
+      </if>
+      <if test="clFile != null" >
+        clFile,
+      </if>
+      <if test="clContacts != null" >
+        clContacts,
+      </if>
+      <if test="clPosition != null" >
+        clPosition,
+      </if>
+      <if test="clTelephone != null" >
+        clTelephone,
+      </if>
+      <if test="clEmail != null" >
+        clEmail,
+      </if>
+      <if test="clQQ != null" >
+        clQQ,
+      </if>
+      <if test="clStatus != null" >
+        clStatus,
+      </if>
+      <if test="clPassWord != null" >
+        clPassWord,
+      </if>
+      <if test="clType != null" >
+        clType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adCompanyName != null" >
+        #{adCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="clName != null" >
+        #{clName,jdbcType=VARCHAR},
+      </if>
+      <if test="clPhone != null" >
+        #{clPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="clLogin != null" >
+        #{clLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="clNumber != null" >
+        #{clNumber,jdbcType=INTEGER},
+      </if>
+      <if test="clWareHouse != null" >
+        #{clWareHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="clAreal != null" >
+        #{clAreal,jdbcType=INTEGER},
+      </if>
+      <if test="clRegion != null" >
+        #{clRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="clAddress != null" >
+        #{clAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="clPostCode != null" >
+        #{clPostCode,jdbcType=INTEGER},
+      </if>
+      <if test="clAdId != null" >
+        #{clAdId,jdbcType=INTEGER},
+      </if>
+      <if test="clMassageq != null" >
+        #{clMassageq,jdbcType=VARCHAR},
+      </if>
+      <if test="clFile != null" >
+        #{clFile,jdbcType=VARCHAR},
+      </if>
+      <if test="clContacts != null" >
+        #{clContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="clPosition != null" >
+        #{clPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="clTelephone != null" >
+        #{clTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="clEmail != null" >
+        #{clEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="clQQ != null" >
+        #{clQQ,jdbcType=VARCHAR},
+      </if>
+      <if test="clStatus != null" >
+        #{clStatus,jdbcType=INTEGER},
+      </if>
+      <if test="clPassWord != null" >
+        #{clPassWord,jdbcType=VARCHAR},
+      </if>
+      <if test="clType != null" >
+        #{clType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.sang.yun.pojo.User" >
+    update user
+    <set >
+      <if test="adCompanyName != null" >
+        adCompanyName = #{adCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="clName != null" >
+        clName = #{clName,jdbcType=VARCHAR},
+      </if>
+      <if test="clPhone != null" >
+        clPhone = #{clPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="clLogin != null" >
+        clLogin = #{clLogin,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null" >
+        roleId = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="clNumber != null" >
+        clNumber = #{clNumber,jdbcType=INTEGER},
+      </if>
+      <if test="clWareHouse != null" >
+        clWareHouse = #{clWareHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="clAreal != null" >
+        clAreal = #{clAreal,jdbcType=INTEGER},
+      </if>
+      <if test="clRegion != null" >
+        clRegion = #{clRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="clAddress != null" >
+        clAddress = #{clAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="clPostCode != null" >
+        clPostCode = #{clPostCode,jdbcType=INTEGER},
+      </if>
+      <if test="clAdId != null" >
+        clAdId = #{clAdId,jdbcType=INTEGER},
+      </if>
+      <if test="clMassageq != null" >
+        clMassageq = #{clMassageq,jdbcType=VARCHAR},
+      </if>
+      <if test="clFile != null" >
+        clFile = #{clFile,jdbcType=VARCHAR},
+      </if>
+      <if test="clContacts != null" >
+        clContacts = #{clContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="clPosition != null" >
+        clPosition = #{clPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="clTelephone != null" >
+        clTelephone = #{clTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="clEmail != null" >
+        clEmail = #{clEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="clQQ != null" >
+        clQQ = #{clQQ,jdbcType=VARCHAR},
+      </if>
+      <if test="clStatus != null" >
+        clStatus = #{clStatus,jdbcType=INTEGER},
+      </if>
+      <if test="clPassWord != null" >
+        clPassWord = #{clPassWord,jdbcType=VARCHAR},
+      </if>
+      <if test="clType != null" >
+        clType = #{clType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.sang.yun.pojo.User" >
+    update user
+    set adCompanyName = #{adCompanyName,jdbcType=VARCHAR},
+      clName = #{clName,jdbcType=VARCHAR},
+      clPhone = #{clPhone,jdbcType=VARCHAR},
+      clLogin = #{clLogin,jdbcType=VARCHAR},
+      roleId = #{roleId,jdbcType=INTEGER},
+      clNumber = #{clNumber,jdbcType=INTEGER},
+      clWareHouse = #{clWareHouse,jdbcType=VARCHAR},
+      clAreal = #{clAreal,jdbcType=INTEGER},
+      clRegion = #{clRegion,jdbcType=VARCHAR},
+      clAddress = #{clAddress,jdbcType=VARCHAR},
+      clPostCode = #{clPostCode,jdbcType=INTEGER},
+      clAdId = #{clAdId,jdbcType=INTEGER},
+      clMassageq = #{clMassageq,jdbcType=VARCHAR},
+      clFile = #{clFile,jdbcType=VARCHAR},
+      clContacts = #{clContacts,jdbcType=VARCHAR},
+      clPosition = #{clPosition,jdbcType=VARCHAR},
+      clTelephone = #{clTelephone,jdbcType=VARCHAR},
+      clEmail = #{clEmail,jdbcType=VARCHAR},
+      clQQ = #{clQQ,jdbcType=VARCHAR},
+      clStatus = #{clStatus,jdbcType=INTEGER},
+      clPassWord = #{clPassWord,jdbcType=VARCHAR},
+      clType = #{clType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sang.yun.mapper.SupplierMapper" >
+  <resultMap id="BaseResultMap" type="org.sang.yun.pojo.Supplier" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="suName" property="suName" jdbcType="VARCHAR" />
+    <result column="waId" property="waId" jdbcType="INTEGER" />
+    <result column="suContact" property="suContact" jdbcType="VARCHAR" />
+    <result column="suMobile" property="suMobile" jdbcType="VARCHAR" />
+    <result column="suPhone" property="suPhone" jdbcType="VARCHAR" />
+    <result column="suAddress" property="suAddress" jdbcType="VARCHAR" />
+    <result column="suRemark" property="suRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, suName, waId, suContact, suMobile, suPhone, suAddress, suRemark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.sang.yun.pojo.SupplierExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from supplier
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supplier
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supplier
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.sang.yun.pojo.Supplier" useGeneratedKeys="true" keyProperty="id" >
+    insert into supplier (suName, waId, suContact, 
+      suMobile, suPhone, suAddress, 
+      suRemark)
+    values (#{suName,jdbcType=VARCHAR}, #{waId,jdbcType=INTEGER}, #{suContact,jdbcType=VARCHAR}, 
+      #{suMobile,jdbcType=VARCHAR}, #{suPhone,jdbcType=VARCHAR}, #{suAddress,jdbcType=VARCHAR}, 
+      #{suRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.sang.yun.pojo.Supplier" useGeneratedKeys="true" keyProperty="id" >
+    insert into supplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="suName != null" >
+        suName,
+      </if>
+      <if test="waId != null" >
+        waId,
+      </if>
+      <if test="suContact != null" >
+        suContact,
+      </if>
+      <if test="suMobile != null" >
+        suMobile,
+      </if>
+      <if test="suPhone != null" >
+        suPhone,
+      </if>
+      <if test="suAddress != null" >
+        suAddress,
+      </if>
+      <if test="suRemark != null" >
+        suRemark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="suName != null" >
+        #{suName,jdbcType=VARCHAR},
+      </if>
+      <if test="waId != null" >
+        #{waId,jdbcType=INTEGER},
+      </if>
+      <if test="suContact != null" >
+        #{suContact,jdbcType=VARCHAR},
+      </if>
+      <if test="suMobile != null" >
+        #{suMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="suPhone != null" >
+        #{suPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="suAddress != null" >
+        #{suAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="suRemark != null" >
+        #{suRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.sang.yun.pojo.Supplier" >
+    update supplier
+    <set >
+      <if test="suName != null" >
+        suName = #{suName,jdbcType=VARCHAR},
+      </if>
+      <if test="waId != null" >
+        waId = #{waId,jdbcType=INTEGER},
+      </if>
+      <if test="suContact != null" >
+        suContact = #{suContact,jdbcType=VARCHAR},
+      </if>
+      <if test="suMobile != null" >
+        suMobile = #{suMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="suPhone != null" >
+        suPhone = #{suPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="suAddress != null" >
+        suAddress = #{suAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="suRemark != null" >
+        suRemark = #{suRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.sang.yun.pojo.Supplier" >
+    update supplier
+    set suName = #{suName,jdbcType=VARCHAR},
+      waId = #{waId,jdbcType=INTEGER},
+      suContact = #{suContact,jdbcType=VARCHAR},
+      suMobile = #{suMobile,jdbcType=VARCHAR},
+      suPhone = #{suPhone,jdbcType=VARCHAR},
+      suAddress = #{suAddress,jdbcType=VARCHAR},
+      suRemark = #{suRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
